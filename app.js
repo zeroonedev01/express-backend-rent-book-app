@@ -1,6 +1,6 @@
-//intialize dotenv
+// intialize dotenv
 require('dotenv').config()
-// import 
+// import
 const express = require('express')
 const app = express()
 const logger = require('morgan')
@@ -9,22 +9,20 @@ const RtBook = require('./src/routes/book')
 const RtRent = require('./src/routes/rent')
 const RtUser = require('./src/routes/user')
 
-
-
 const port = process.env.SERVER_PORT || 3000
 app.listen(port, () => {
-    console.log(`Server is running on Port ${port}`)
+  console.log(`Server is running on Port ${port}`)
 })
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
-    extended: false
+  extended: false
 }))
 app.use('/rentapp', RtBook)
 app.use('/rentapp', RtRent)
 app.use('/rentapp', RtUser)
 
-//learn extendens
+// learn extendens
 // app.get('/mygithub', (rq, rs) => {
 //     rs.redirect('https://www.github.com/tejojr  ');
 // })
@@ -33,14 +31,14 @@ app.use('/rentapp', RtUser)
 //     rs.sendFile('');
 // })
 /*
--> Learn Routing 
+-> Learn Routing
 app.get('/echo/:nama', (rq, rs) => {
     rs.send(`Route dari ${rq.params.nama}`);
-}); 
+});
 */
 
 /*
-->Learn Middleware 
+->Learn Middleware
 const middlewareSatu = (rq, rs, next) => {
     console.log('Midleware1');
     next();
@@ -50,8 +48,8 @@ const middlewareDua = (rq, rs, next) => {
     next();
 }
 app.use(middlewareSatu);
-app.use(middlewareDua); 
+app.use(middlewareDua);
 */
 app.get('/rentapp', (rq, rs) => {
-    rs.send('Welcome to Rent Book App');
+  rs.send('Welcome to Rent Book App')
 })

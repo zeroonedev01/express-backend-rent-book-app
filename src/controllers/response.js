@@ -1,8 +1,9 @@
-exports.ok = (val, rs) => {
-    const data = {
-        status: 200,
-        values: val
-    }
-    rs.json(data)
-    rs.end();
+exports.response = (rs, message, status, values) => {
+  let messages = {
+    status: status || 200,
+    message: message || null,
+    values: values || null
+
+  }
+  return rs.json(messages)
 }
