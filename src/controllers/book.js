@@ -35,34 +35,60 @@ module.exports = {
     addData: (rq, rs) => {
         const data = {
             id: rq.body.id,
-            Title: rq.body.title,
-            Description: rq.body.desc,
-            Image: rq.body.image,
-            DateReleased: new Date(),
+            title: rq.body.title,
+            description: rq.body.desc,
+            image: rq.body.image,
+            dateReleased: new Date(),
             id_status: rq.body.available,
             id_genre: rq.body.genre
         }
-        modBook.addData(data)
+        modBook.isDuplicateTitle(data.title, data.id)
+            .then(res => {
+                if (res.length == 0) {
+                    // console.log('a')
+                    return modBook.addData(data)
+                } else {
+                    return response.response(rs, "Duplicate Title or id buku", 409)
+                }
+            })
             .then(res => response.response(rs, "Book is Successfully Inserted", 200, res))
             .catch(err => console.log(err))
+
+
     },
     editData: (rq, rs) => {
         const idbook = rq.params.idbook
         const data = {
-            Title: rq.body.title,
-            Description: rq.body.desc,
-            Image: rq.body.image,
-            DateReleased: new Date(),
+            title: rq.body.title,
+            description: rq.body.desc,
+            image: rq.body.image,
+            dateReleased: new Date(),
             id_status: rq.body.available,
             id_genre: rq.body.genre
         }
-        modBook.editData(data, idbook)
-            .then(res => response.response(rs, "Book is Successfully Edited", 200, res))
+        modBook.getData(idbook)
+            .then(res => {
+                if (res.length == 1) {
+                    console.log('a')
+                    return modBook.editData(data, idbook)
+                } else {
+                    return response.response(rs, "Invalid id book", 409)
+                }
+            })
+            .then(res => response.response(rs, "Book is Successfully Updated", 200, res))
             .catch(err => console.log(err))
     },
     deleteData: (rq, rs) => {
         const idbook = rq.params.idbook
-        modBook.deleteData(idbook)
+        modBook.getData(idbook)
+            .then(res => {
+                if (res.length == 1) {
+                    console.log('a')
+                    return modBook.deleteData(idbook)
+                } else {
+                    return response.response(rs, "Invalid id book", 409)
+                }
+            })
             .then(res => response.response(rs, "Book is Successfully Deleted", 200, res))
             .catch(err => console.log(err))
     },

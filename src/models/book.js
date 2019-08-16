@@ -56,6 +56,17 @@ module.exports = {
       })
     })
   },
+  isDuplicateTitle: (title, id) => {
+    return new Promise((resolve, reject) => {
+      conn.query(`SELECT * from v_book where title =? or id=?`, [title, id], (err, rs) => {
+        if (!err) {
+          resolve(rs)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
   addData: (data) => {
     return new Promise((resolve, reject) => {
       conn.query(`INSERT INTO book SET ?`, data, (err, result) => {

@@ -73,7 +73,7 @@ module.exports = {
           // console.log('a')
           return modRent.updateStatus(status, idbook)
         } else {
-          return response.response(rs, "Id Borrow not found", 409)
+          return response.response(rs, "Id Borrow not found", 404)
         }
       })
       .then(res => {
