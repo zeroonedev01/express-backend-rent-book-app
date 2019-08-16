@@ -13,7 +13,8 @@ module.exports = {
             id_book: rq.body.id_book,
             daterent: new Date(),
             datereturn: rq.body.datereturn,
-            datereturnuser: rq.body.datereturnuser
+            datereturnuser: rq.body.datereturnuser,
+            user_id: rq.body.user_id
         }
         const idbook = rq.body.id_book
         const status = 2

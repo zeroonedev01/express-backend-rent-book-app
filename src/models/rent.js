@@ -3,7 +3,7 @@ const conn = require('../configs/db')
 module.exports = {
     getAllBorrow: () => {
         return new Promise((resolve, reject) => {
-            conn.query(`SELECT trx_book.id, book.title, trx_book.daterent, trx_book.datereturn, trx_book.datereturnuser from trx_book inner join book on trx_book.id_book = book.id`, (err, res) => {
+            conn.query(`SELECT trx_book.id, user.username, book.title, trx_book.daterent, trx_book.datereturn, trx_book.datereturnuser from trx_book inner join book on trx_book.id_book = book.id INNER JOIN user on trx_book.user_id = user.id`, (err, res) => {
                 if (!err) {
                     resolve(res)
                 } else {

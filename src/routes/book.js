@@ -1,9 +1,10 @@
 const express = require('express')
 const Route = express.Router()
 const CtrlBook = require('../controllers/book')
+const auth = require('../middleware/auth')
 
 Route
-    .get('/book', CtrlBook.getAll)
+    .get('/book/*', auth.auth, CtrlBook.getAll)
     .get('/book/:idbook', CtrlBook.getById)
     .post('/book', CtrlBook.addData)
     .patch('/book/:idbook', CtrlBook.editData)
