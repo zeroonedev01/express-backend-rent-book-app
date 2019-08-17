@@ -34,7 +34,7 @@ Key:token
 1.	Genre
 * Post
 * http://localhost:3000/rentapp/genre
-* name:Music
+* * name:Music
 * Get
 * http://localhost:3000/rentapp/genre
 * http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
