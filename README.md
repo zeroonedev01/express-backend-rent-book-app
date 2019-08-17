@@ -11,6 +11,7 @@
 - [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [Requirements](#requirements)
+- [END POINT](#end-point)
 - [Contributor](#contributor)
 
 # Introduction
@@ -25,6 +26,58 @@ This is my repository containing a Rest Full API backend Rent Book app, this API
 * [`Postman`](https://www.getpostman.com/)
 * [`Node.Js`](https://nodejs.org/)
 * [`Mysql`](https://nodejs.org/)
+
+#INSTALLATION
+# END POINT
+Header :
+Key:token
+1.	Genre
+a.	Post
+http://localhost:3000/rentapp/genre
+name:Music
+b.	Get
+http://localhost:3000/rentapp/genre
+http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
+c.	Patch
+http://localhost:3000/rentapp/genre/1
+name :blabla
+d.	Delete
+http://localhost:3000/rentapp/genre/13
+2.	Book
+a.	Post
+id:BK00000005
+title:Griffon in Action
+desc:A beautifully written book that is a must have for every Java Developer.       Ashish Kulkarni, Technical Director, E-Business Software Solutions Ltd.
+image:https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/allen.jpg
+available:1
+genre:14
+date:2012-06-04T00:00:00.000-0700
+b.	GET
+http://localhost:3000/rentapp/book?sort=title:desc&available=true&page=1&limit=2
+c.	Patch
+http://localhost:3000/rentapp/book/BK00000006
+title:AAAA
+desc:berubrah111
+image:beruba11h.jpg
+available:1
+genre:12
+date:2011-12-12T00:00:00.000-0800
+d.	Delete
+http://localhost:3000/rentapp/book/BK00000006
+
+3.	Borrow
+a.	Post Borrow
+http://localhost:3000/rentapp/borrow
+id:P20190809002
+id_book:BK00000001
+datereturn:2019-08-20
+datereturnuser :null
+user_id:4
+b.	Patch returnbook
+http://localhost:3000/rentapp/borrow/P20190809003
+c.	getBorrow
+http://localhost:3000/rentapp/borrow/
+
 
 # Contributor
 <a href="https://github.com/tejojr">

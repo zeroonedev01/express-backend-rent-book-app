@@ -31,30 +31,33 @@ module.exports = {
     const param = rq.body.email;
     const password = rq.body.password;
 
-    modUser
-      .signIn(param)
+    modUser.signIn(param)
       .then(res => {
-        const dbPassword = res[0].password;
-        const result = bcrypt.compareSync(password, dbPassword);
-        if (result) {
-          const token = jwt.sign({
+        if (res.length > 0) {
+          const dbPassword = res[0].password;
+          const result = bcrypt.compareSync(password, dbPassword);
+          if (result) {
+            const token = jwt.sign({
+                id: res[0].id,
+                role: res[0].role
+              },
+              process.env.SECRET_KEY, {
+                expiresIn: 86400 // expires in 24 hours
+              }
+            );
+            const val = {
               id: res[0].id,
-              role: res[0].role
-            },
-            process.env.SECRET_KEY, {
-              expiresIn: 86400 // expires in 24 hours
-            }
-          );
-          const val = {
-            id: res[0].id,
-            role: res[0].role,
-            auth: true,
-            accessToken: token
-          };
-          // console.log(process.env.SECRET_KEY);
-          return response.response(rs, "Login Success", 3600, val);
+              role: res[0].role,
+              auth: true,
+              accessToken: token
+            };
+            // console.log(process.env.SECRET_KEY);
+            return response.response(rs, "Login Success", 3600, val);
+          } else {
+            return response.response(rs, "Invalid Password", 403);
+          }
         } else {
-          return response.response(rs, "Invalid Password", 403);
+          return response.response(rs, "Username or email not found", 404);
         }
       })
       .catch(err => console.error(err));
