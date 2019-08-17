@@ -31,19 +31,19 @@ This is my repository containing a Rest Full API backend Rent Book app, this API
 # END POINT
 Header :
 Key:token
-1.	Genre
-a.	Post
-http://localhost:3000/rentapp/genre
-name:Music
-b.	Get
-http://localhost:3000/rentapp/genre
-http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
-c.	Patch
-http://localhost:3000/rentapp/genre/1
-name :blabla
-d.	Delete
-http://localhost:3000/rentapp/genre/13
-2.	Book
+1.Genre
+*Post
+**http://localhost:3000/rentapp/genre
+**name:Music
+*Get
+**http://localhost:3000/rentapp/genre
+**http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
+*Patch
+**http://localhost:3000/rentapp/genre/1
+**name :blabla
+*Delete
+*http://localhost:3000/rentapp/genre/13
+2.Book
 a.	Post
 id:BK00000005
 title:Griffon in Action
