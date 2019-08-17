@@ -30,54 +30,64 @@ This is my repository containing a Rest Full API backend Rent Book app, this API
 #INSTALLATION
 # END POINT
 Header :
-Key:token
+x-access-token:token
 1.	Genre
 * Post
-* http://localhost:3000/rentapp/genre
-* * name:Music
+  * http://localhost:3000/rentapp/genre
+  * name:Music
 * Get
-* http://localhost:3000/rentapp/genre
-* http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
+  * http://localhost:3000/rentapp/genre
+  * http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
 * Patch
-* http://localhost:3000/rentapp/genre/1
-* name :blabla
+  * http://localhost:3000/rentapp/genre/1
+  * name :blabla
 * Delete
-* http://localhost:3000/rentapp/genre/13
+  * http://localhost:3000/rentapp/genre/13
 2.	Book
 * Post
-* id:BK00000005
-* title:Griffon in Action
-* desc:A beautifully written book that is a must have for every Java Developer.       Ashish Kulkarni, Technical Director, E-Business Software Solutions Ltd.
-* image:https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/allen.jpg
-* available:1
-* genre:14
-* date:2012-06-04T00:00:00.000-0700
+  * id:BK00000005
+  * title:Griffon in Action
+  * desc:A beautifully written book that is a must have for every Java Developer.Ashish Kulkarni, Technical Director, E-Business Software Solutions Ltd.
+  * image:https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/allen.jpg
+  * available:1
+  * genre:14
+  * date:2012-06-04T00:00:00.000-0700
 * GET
-* http://localhost:3000/rentapp/book?sort=title:desc&available=true&page=1&limit=2
+  * http://localhost:3000/rentapp/book?sort=title:desc&available=true&page=1&limit=2
 * Patch
-* http://localhost:3000/rentapp/book/BK00000006
-* title:AAAA
-* desc:berubrah111
-* image:beruba11h.jpg
-* available:1
-* genre:12
-* date:2011-12-12T00:00:00.000-0800
+  * http://localhost:3000/rentapp/book/BK00000006
+  * title:AAAA
+  * desc:berubrah111
+  * image:beruba11h.jpg
+  * available:1
+  * genre:12
+  * date:2011-12-12T00:00:00.000-0800
 * Delete
-* http://localhost:3000/rentapp/book/BK00000006
+  * http://localhost:3000/rentapp/book/BK00000006
 
-* Borrow
+3 Borrow
 * Post Borrow
-* http://localhost:3000/rentapp/borrow
-* id:P20190809002
-* id_book:BK00000001
-* datereturn:2019-08-20
-* datereturnuser :null
-* user_id:4
+  * http://localhost:3000/rentapp/borrow
+  * id:P20190809002
+  * id_book:BK00000001
+  * datereturn:2019-08-20
+  * datereturnuser :null
+  * user_id:4
 * Patch returnbook
-* http://localhost:3000/rentapp/borrow/P20190809003
+  * http://localhost:3000/rentapp/borrow/P20190809003
 * getBorrow
-* http://localhost:3000/rentapp/borrow/
+  * http://localhost:3000/rentapp/borrow/
 
+4.user
+* post sign:  192.168.6.109:3000/rentapp/user/signin
+    * email: zeref.weismann || ammar.fiky@gmail.com (user)
+    * email: pinter.gugel@gmail.com	|| natsu_dragneel (admin)		
+    * password:test1234
+* post signup : http://localhost:3000/rentapp/user/signup
+    * username:budi1
+    * email:budi1@gmail.com
+    * password:test1234
+    * role_id:1
 
 # Contributor
 <a href="https://github.com/tejojr">
