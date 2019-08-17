@@ -66,11 +66,11 @@ module.exports = {
     const datereturn = new Date()
     const status = 1
     let idbook = null
-    modRent.getBorrowbyId(idtrx)
+    modRent.getBookId(idtrx)
       .then(res => {
         if (res.length > 0) {
           idbook = res[0].id_book;
-          // console.log('a')
+          console.log(idbook)
           return modRent.updateStatus(status, idbook)
         } else {
           return response.response(rs, "Id Borrow not found", 404)
@@ -84,7 +84,7 @@ module.exports = {
 
   }
   // returnBook: (rq, rs) => {
-  //   const datereturnuser = new Date()
+  //   const datereturnuser = new Date()  
   //   const idborrow = rq.params.idborrow
   //   const status = 1
   //   modRent.returnBook(idborrow, datereturnuser, status)

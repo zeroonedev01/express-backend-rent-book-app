@@ -30,6 +30,21 @@ module.exports = {
       );
     });
   },
+  getBookId: (idborrow) => {
+    return new Promise((resolve, reject) => {
+      conn.query(
+        `SELECT * from trx_book where trx_book.id = ?`,
+        idborrow,
+        (err, res) => {
+          if (!err) {
+            resolve(res);
+          } else {
+            reject(err);
+          }
+        }
+      );
+    });
+  },
   getBookStatus: (idbook) => {
     return new Promise((resolve, reject) => {
       conn.query(

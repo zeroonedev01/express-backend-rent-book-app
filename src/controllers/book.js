@@ -38,7 +38,7 @@ module.exports = {
             title: rq.body.title,
             description: rq.body.desc,
             image: rq.body.image,
-            dateReleased: new Date(),
+            dateReleased: rq.body.date,
             id_status: rq.body.available,
             id_genre: rq.body.genre
         }
@@ -62,16 +62,18 @@ module.exports = {
             title: rq.body.title,
             description: rq.body.desc,
             image: rq.body.image,
-            dateReleased: new Date(),
+            dateReleased: rq.body.date,
             id_status: rq.body.available,
             id_genre: rq.body.genre
         }
         modBook.getData(idbook)
             .then(res => {
-                if (res.length == 1) {
+                // console.log(res.length)
+                if (res.length > 0) {
                     console.log('a')
                     return modBook.editData(data, idbook)
                 } else {
+
                     return response.response(rs, "Invalid id book", 409)
                 }
             })
@@ -82,7 +84,7 @@ module.exports = {
         const idbook = rq.params.idbook
         modBook.getData(idbook)
             .then(res => {
-                if (res.length == 1) {
+                if (res.length > 0) {
                     console.log('a')
                     return modBook.deleteData(idbook)
                 } else {
@@ -118,10 +120,22 @@ module.exports = {
             .catch(err => console.log(err))
     },
     addGenre: (rq, rs) => {
+
+        const name = rq.body.name
         const data = {
             name: rq.body.name
         }
-        modBook.addGenre(data)
+
+
+        modBook.duplicateGenre(name)
+            .then(res => {
+                if (res.length == 0) {
+                    // console.log('a')
+                    return modBook.addGenre(data)
+                } else {
+                    return response.response(rs, "Duplicate Genre", 409)
+                }
+            })
             .then(res => response.response(rs, "Genre is Successfully Inserted", 200, res))
             .catch(err => console.log(err))
     },
@@ -130,13 +144,29 @@ module.exports = {
         const data = {
             name: rq.body.name
         }
-        modBook.editGenre(data, idgenre)
+        modBook.getGenreById(idgenre)
+            .then(res => {
+                if (res.length > 0) {
+                    console.log('a')
+                    return modBook.editGenre(data, idgenre)
+                } else {
+                    return response.response(rs, "Genre Not Available", 404)
+                }
+            })
             .then(res => response.response(rs, "Genre is Successfully Edited", 200, res))
             .catch(err => console.log(err))
     },
     deleteGenre: (rq, rs) => {
         const idgenre = rq.params.idgenre
-        modBook.deleteGenre(idgenre)
+        modBook.getGenreById(idgenre)
+            .then(res => {
+                if (res.length > 0) {
+                    // console.log('a')
+                    return modBook.deleteGenre(idgenre)
+                } else {
+                    return response.response(rs, "Genre Not Available", 404)
+                }
+            })
             .then(res => response.response(rs, "Book is Successfully Deleted", 200, res))
             .catch(err => console.log(err))
     }

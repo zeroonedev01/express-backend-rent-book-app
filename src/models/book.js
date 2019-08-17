@@ -1,5 +1,7 @@
 const conn = require('../configs/db')
-const nameColumns = ['title', 'releasedate', 'genre']
+const nameColumns = ['title', 'datereleased', 'genre']
+const nameGen = ['name']
+
 
 module.exports = {
   // manage book
@@ -117,7 +119,7 @@ module.exports = {
         if (order === undefined) {
           order = 'asc'
         }
-        if (!col == 'name') {
+        if (!nameGen.includes(col)) {
           resolve('Only can sort name')
           return
         }
@@ -150,9 +152,9 @@ module.exports = {
       })
     })
   },
-  addGenre: (data) => {
+  addGenre: (name) => {
     return new Promise((resolve, reject) => {
-      conn.query(`INSERT INTO genre SET ?`, data, (err, result) => {
+      conn.query(`INSERT INTO genre SET ?`, name, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -179,6 +181,18 @@ module.exports = {
           resolve(res)
         } else {
           reject(err)
+        }
+      })
+    })
+  },
+  duplicateGenre: (data) => {
+    return new Promise((resolve, reject) => {
+      conn.query(`SELECT * FROM Genre where name = ?`, data, (err, res) => {
+        if (!err) {
+          resolve(res)
+        } else {
+          reject(err)
+
         }
       })
     })
