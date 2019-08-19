@@ -8,18 +8,20 @@
 </p>
 
 ## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
 - [Features](#features)
-  - [Built With](#built-with)
-  - [Requirements](#requirements)
-  - [Usage for Development](#usage-for-development)
-  - [Setup .env file](#setup-env-file)
-  - [End Points](#end-points)
+- [Built With](#built-with)
+- [Requirements](#requirements)
+- [Usage for Development](#usage-for-development)
+- [Setup .env file](#setup-env-file)
+- [End Points](#end-points)
 - [Contributor](#contributor)
 
 ## Introduction
 This is my repository containing a Rest Full API backend Rent Book app, this API is builded with Mysql and Express.JS
 
-# Features
+## Features
 * Register and Login with JWT
 * CRUD Books
 * CRUD Genre
@@ -126,7 +128,7 @@ My project directory
   host/rentapp/users/signup
   ```
 
-# Contributor
+## Contributor
 <a href="https://github.com/tejojr">
           <img width="100" src="https://avatars2.githubusercontent.com/u/33275770?s=460&v=4" alt="Ammar Annajih Pasifiky">
           <br/>
