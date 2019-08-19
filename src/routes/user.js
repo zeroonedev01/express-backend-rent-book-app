@@ -1,9 +1,10 @@
-const express = require('express')
+const express = require("express")
 const Route = express.Router()
-const CtrlUser = require('../controllers/user')
+const CtrlUser = require("../controllers/user")
 
-Route
-  .post('/user/signup', CtrlUser.signUp)
-  .post('/user/signin', CtrlUser.signIn)
+Route.post("/users/signup", CtrlUser.signUp).post(
+  "/users/signin",
+  CtrlUser.signIn
+)
 
 module.exports = Route

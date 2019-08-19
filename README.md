@@ -7,88 +7,124 @@
   Built with Express.js and Mysql.
 </p>
 
-# Table of Contents
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Requirements](#requirements)
-- [END POINT](#end-point)
+## Table of Contents
+- [Features](#features)
+  - [Built With](#built-with)
+  - [Requirements](#requirements)
+  - [Usage for Development](#usage-for-development)
+  - [Setup .env file](#setup-env-file)
+  - [End Points](#end-points)
 - [Contributor](#contributor)
 
-# Introduction
-[![React Native](https://img.shields.io/badge/Express%20-4.17.1-blue.svg?style=rounded-square)](https://expressjs.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-v.10.16.2-green.svg?style=rounded-square)](https://nodejs.org/)
-[![MySQL](https://img.shields.io/badge/MySQL-v.10.16.2-orange.svg?style=rounded-square)](https://nodejs.org/)
-<br>
+## Introduction
 This is my repository containing a Rest Full API backend Rent Book app, this API is builded with Mysql and Express.JS
 
-# Requirements
-* [`npm`](https://www.npmjs.com/get-npm)
-* [`Postman`](https://www.getpostman.com/)
-* [`Node.Js`](https://nodejs.org/)
-* [`Mysql`](https://nodejs.org/)
+# Features
+* Register and Login with JWT
+* CRUD Books
+* CRUD Genre
+* Sorting 
+* Filtering
+* Pagination
+* Search a books
+* Rent or returning a book
 
-#INSTALLATION
-# END POINT
-Header :
-x-access-token:token
-1.	Genre
+## Built With
+[![React Native](https://img.shields.io/badge/Express%20-4.17.1-blue.svg?style=rounded-square)](https://expressjs.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-v.10.16.2-green.svg?style=rounded-square)](https://nodejs.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-v.10.16.2-orange.svg?style=rounded-square)](https://www.npmjs.com/search?q=mysql) 
+[![jsonwebtoken](https://img.shields.io/badge/JWT-v.8.5.1-critical)](https://www.npmjs.com/package/jsonwebtoken)
+
+## Requirements
+* node.js
+* npm
+* postman (installer or chrome extension)
+* code editor (visual studio code recommend)
+* mysql (xampp)
+
+## Usage for Development
+* Clone this repository https://github.com/tejojr/express-backend-rent-book-app.git
+* Open CMD or Terminal and enter to the app directory
+* Type in Terminal npm install to install the required packages.
+* Setup .env file
+* Run MySql
+* Create database and run example.sql script to install the necessary database structure
+* Open Postman for testing API
+
+## Setup .env file
+* In windows OS, you can open command prompt, change directory to your project directory.
+Example,
+My project directory 
+  ```
+  E:\my_project
+  ```
+* Then you can type,
+  ```
+  copy .env.example .env
+  ```
+* Then Setup .env   
+
+## End Points
+1. Genre
 * Post
-  * http://localhost:3000/rentapp/genre
-  * name:Music
+  ```
+  host/rentapp/genres
+  ```
 * Get
-  * http://localhost:3000/rentapp/genre
-  * http://localhost:3000/rentapp/genre?page=1&limit=2&sort=name:desc
+  ```
+  host/rentapp/genres
+  host/rentapp/genres?page=1&limit=2&sort=name:desc
+  ```
 * Patch
-  * http://localhost:3000/rentapp/genre/1
-  * name :blabla
+  ```
+  host/rentapp/genres/:id
+  ```
 * Delete
-  * http://localhost:3000/rentapp/genre/13
+  ```
+  host/rentapp/genres/:id
+  ```
 2.	Book
 * Post
-  * id:BK00000005
-  * title:Griffon in Action
-  * desc:A beautifully written book that is a must have for every Java Developer.Ashish Kulkarni, Technical Director, E-Business Software Solutions Ltd.
-  * image:https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/allen.jpg
-  * available:1
-  * genre:14
-  * date:2012-06-04T00:00:00.000-0700
+  ```
+  host/rentapp/books/
+  ```
 * GET
-  * http://localhost:3000/rentapp/book?sort=title:desc&available=true&page=1&limit=2
+  ```
+  host/rentapp/books?sort=title:desc&available=true&page=1&limit=2
+  ```
 * Patch
-  * http://localhost:3000/rentapp/book/BK00000006
-  * title:AAAA
-  * desc:berubrah111
-  * image:beruba11h.jpg
-  * available:1
-  * genre:12
-  * date:2011-12-12T00:00:00.000-0800
+  ```
+  host/rentapp/books/:id
+  ```
 * Delete
-  * http://localhost:3000/rentapp/book/BK00000006
+  ```
+  host/rentapp/books/:id
+  ```
 
 
 3 Borrow
 * Post Borrow
-  * http://localhost:3000/rentapp/borrow
-  * id:P20190809002
-  * id_book:BK00000001
-  * datereturn:2019-08-20
-  * datereturnuser :null
-  * user_id:4
+  ```
+  host/rentapp/borrows
+  ```
 * Patch returnbook
-  * http://localhost:3000/rentapp/borrow/P20190809003
+  ```
+  host/rentapp/borrows/:id
+  ```
 * getBorrow
-  * http://localhost:3000/rentapp/borrow/
+  ```
+  host/rentapp/borrows/
+  ```
 
 4.user
-* post sign:  192.168.6.109:3000/rentapp/user/signin
-    * email: zeref.weismann || ammar.fiky@gmail.com (user)
-    * email: pinter.gugel@gmail.com	|| natsu_dragneel (admin)		
-    * password:test1234
-* post signup : http://localhost:3000/rentapp/user/signup
-    * username:budi1
-    * email:budi1@gmail.com
-    * password:test1234
-    * role_id:1
+* post sign
+  ```
+  host/rentapp/users/signin
+  ```
+* post signup 
+  ```
+  host/rentapp/users/signup
+  ```
 
 # Contributor
 <a href="https://github.com/tejojr">

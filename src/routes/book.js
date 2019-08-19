@@ -1,20 +1,19 @@
-const express = require('express')
+const express = require("express")
 const Route = express.Router()
-const CtrlBook = require('../controllers/book')
-const auth = require('../middleware/auth')
+const CtrlBook = require("../controllers/book")
+const auth = require("../middleware/auth")
 
-Route
-  .get('/book/', auth.auth, CtrlBook.getAll)
-  .get('/book/:idbook', auth.auth, CtrlBook.getById)
-  .post('/book', [auth.auth, auth.isAdmin], CtrlBook.addData)
-  .patch('/book/:idbook', [auth.auth, auth.isAdmin], CtrlBook.editData)
-  .delete('/book/:idbook', [auth.auth, auth.isAdmin], CtrlBook.deleteData)
+Route.get("/books/", auth.auth, CtrlBook.getAll)
+  .get("/books/:idbook", auth.auth, CtrlBook.getById)
+  .post("/books", [auth.auth, auth.isAdmin], CtrlBook.addData)
+  .patch("/books/:idbook", [auth.auth, auth.isAdmin], CtrlBook.editData)
+  .delete("/books/:idbook", [auth.auth, auth.isAdmin], CtrlBook.deleteData)
   // .get('/book/search/:param', CtrlBook.search)
   // manage Genre
-  .get('/genre', auth.auth, CtrlBook.getGenre)
-  .get('/genre/:idgenre', auth.auth, CtrlBook.getGenreById)
-  .post('/genre', [auth.auth, auth.isAdmin], CtrlBook.addGenre)
-  .patch('/genre/:idgenre', [auth.auth, auth.isAdmin], CtrlBook.editGenre)
-  .delete('/genre/:idgenre', [auth.auth, auth.isAdmin], CtrlBook.deleteGenre)
+  .get("/genres", auth.auth, CtrlBook.getGenre)
+  .get("/genres/:idgenre", auth.auth, CtrlBook.getGenreById)
+  .post("/genres", [auth.auth, auth.isAdmin], CtrlBook.addGenre)
+  .patch("/genres/:idgenre", [auth.auth, auth.isAdmin], CtrlBook.editGenre)
+  .delete("/genres/:idgenre", [auth.auth, auth.isAdmin], CtrlBook.deleteGenre)
 
 module.exports = Route
