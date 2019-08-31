@@ -1,26 +1,30 @@
 // intialize dotenv
-require('dotenv').config()
+require("dotenv").config()
 // import
-const express = require('express')
+const express = require("express")
 const app = express()
-const logger = require('morgan')
-const bodyParser = require('body-parser')
-const RtBook = require('./src/routes/book')
-const RtRent = require('./src/routes/rent')
-const RtUser = require('./src/routes/user')
+const logger = require("morgan")
+const bodyParser = require("body-parser")
+const RtBook = require("./src/routes/book")
+const RtRent = require("./src/routes/rent")
+const RtUser = require("./src/routes/user")
+const cors = require("cors")
 
-const port = process.env.SERVER_PORT || 3000
+const port = process.env.SERVER_PORT || 3020
 app.listen(port, () => {
   console.log(`Server is running on Port ${port}`)
 })
-app.use(logger('dev'))
+app.use(cors())
+app.use(logger("dev"))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: false
-}))
-app.use('/rentapp', RtBook)
-app.use('/rentapp', RtRent)
-app.use('/rentapp', RtUser)
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+)
+app.use("/rentapp", RtBook)
+app.use("/rentapp", RtRent)
+app.use("/rentapp", RtUser)
 
 // learn extendens
 // app.get('/mygithub', (rq, rs) => {
@@ -50,6 +54,6 @@ const middlewareDua = (rq, rs, next) => {
 app.use(middlewareSatu);
 app.use(middlewareDua);
 */
-app.get('/rentapp', (rq, rs) => {
-  rs.send('Welcome to Rent Book App')
+app.get("/rentapp", (rq, rs) => {
+  rs.send("Welcome to Rent Book App")
 })

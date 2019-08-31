@@ -1,11 +1,10 @@
-const conn = require('../configs/db')
-const nameColumns = ['title', 'datereleased', 'genre']
-const nameGen = ['name']
-
+const conn = require("../configs/db")
+const nameColumns = ["title", "datereleased", "genre"]
+const nameGen = ["name"]
 
 module.exports = {
   // manage book
-  getDataAll: (param) => {
+  getDataAll: param => {
     return new Promise((resolve, reject) => {
       const sort = param.sorting
       const available = param.available
@@ -20,24 +19,24 @@ module.exports = {
         basicquery += ` AND title like  '%${search}%' or genre like '%${search}%'`
       }
       if (sort != null) {
-        let [col, order] = sort.split(':')
+        let [col, order] = sort.split(":")
         // console.log(order)
         if (order === undefined) {
-          order = 'asc'
+          order = "asc"
         }
         if (!nameColumns.includes(col)) {
-          resolve('Only can sort Title, Date Release, and Genre')
+          resolve("Only can sort Title, Date Release, and Genre")
           return
         }
-        if (order !== 'asc' && order !== 'desc') {
-          resolve('Invalid sort order')
+        if (order !== "asc" && order !== "desc") {
+          resolve("Invalid sort order")
           return
         }
 
         basicquery += ` ORDER BY ${col} ${order}`
       }
       basicquery += ` limit ${param.start},${param.limit}  `
-      console.log('==' + basicquery)
+      console.log("==" + basicquery)
       conn.query(basicquery, (err, rs) => {
         if (!err) {
           resolve(rs)
@@ -47,9 +46,9 @@ module.exports = {
       })
     })
   },
-  getData: (idbook) => {
+  getData: idbook => {
     return new Promise((resolve, reject) => {
-      conn.query(`SELECT book.id, book.Title, book.Description, book.Image, book.DateReleased, status.available, genre.name as genre FROM book inner join genre on book.id_genre = genre.id inner join status on book.id_status = status.id where book.id =?`, idbook, (err, rs) => {
+      conn.query(`SELECT * from v_book where id =?`, idbook, (err, rs) => {
         if (!err) {
           resolve(rs)
         } else {
@@ -60,16 +59,20 @@ module.exports = {
   },
   isDuplicateTitle: (title, id) => {
     return new Promise((resolve, reject) => {
-      conn.query(`SELECT * from v_book where title =? or id=?`, [title, id], (err, rs) => {
-        if (!err) {
-          resolve(rs)
-        } else {
-          reject(err)
+      conn.query(
+        `SELECT * from v_book where title =? or id=?`,
+        [title, id],
+        (err, rs) => {
+          if (!err) {
+            resolve(rs)
+          } else {
+            reject(err)
+          }
         }
-      })
+      )
     })
   },
-  addData: (data) => {
+  addData: data => {
     return new Promise((resolve, reject) => {
       conn.query(`INSERT INTO book SET ?`, data, (err, result) => {
         if (!err) {
@@ -82,13 +85,17 @@ module.exports = {
   },
   editData: (data, idbook) => {
     return new Promise((resolve, reject) => {
-      conn.query(`UPDATE book set ? where id = ?`, [data, idbook], (err, res) => {
-        if (!err) {
-          resolve(res)
-        } else {
-          reject(err)
+      conn.query(
+        `UPDATE book set ? where id = ?`,
+        [data, idbook],
+        (err, res) => {
+          if (!err) {
+            resolve(res)
+          } else {
+            reject(err)
+          }
         }
-      })
+      )
     })
   },
   deleteData: idbook => {
@@ -103,7 +110,7 @@ module.exports = {
     })
   },
   // manage Genre
-  getGenre: (param) => {
+  getGenre: param => {
     return new Promise((resolve, reject) => {
       const sort = param.sorting
       const search = param.search
@@ -114,24 +121,24 @@ module.exports = {
         basicquery += ` AND name like  '%${search}%'`
       }
       if (sort != null) {
-        let [col, order] = sort.split(':')
+        let [col, order] = sort.split(":")
         // console.log(order)
         if (order === undefined) {
-          order = 'asc'
+          order = "asc"
         }
         if (!nameGen.includes(col)) {
-          resolve('Only can sort name')
+          resolve("Only can sort name")
           return
         }
-        if (order !== 'asc' && order !== 'desc') {
-          resolve('Invalid sort order')
+        if (order !== "asc" && order !== "desc") {
+          resolve("Invalid sort order")
           return
         }
 
         basicquery += ` ORDER BY ${col} ${order}`
       }
       basicquery += ` limit ${param.start},${param.limit}  `
-      console.log('==' + basicquery)
+      console.log("==" + basicquery)
       conn.query(basicquery, (err, rs) => {
         if (!err) {
           resolve(rs)
@@ -141,7 +148,7 @@ module.exports = {
       })
     })
   },
-  getGenreById: (idgenre) => {
+  getGenreById: idgenre => {
     return new Promise((resolve, reject) => {
       conn.query(`SELECT * FROM Genre WHERE id =?`, idgenre, (err, rs) => {
         if (!err) {
@@ -152,7 +159,7 @@ module.exports = {
       })
     })
   },
-  addGenre: (name) => {
+  addGenre: name => {
     return new Promise((resolve, reject) => {
       conn.query(`INSERT INTO genre SET ?`, name, (err, result) => {
         if (!err) {
@@ -165,13 +172,17 @@ module.exports = {
   },
   editGenre: (data, idgenre) => {
     return new Promise((resolve, reject) => {
-      conn.query(`UPDATE genre set ? where id = ?`, [data, idgenre], (err, res) => {
-        if (!err) {
-          resolve(res)
-        } else {
-          reject(err)
+      conn.query(
+        `UPDATE genre set ? where id = ?`,
+        [data, idgenre],
+        (err, res) => {
+          if (!err) {
+            resolve(res)
+          } else {
+            reject(err)
+          }
         }
-      })
+      )
     })
   },
   deleteGenre: idgenre => {
@@ -185,14 +196,13 @@ module.exports = {
       })
     })
   },
-  duplicateGenre: (data) => {
+  duplicateGenre: data => {
     return new Promise((resolve, reject) => {
       conn.query(`SELECT * FROM Genre where name = ?`, data, (err, res) => {
         if (!err) {
           resolve(res)
         } else {
           reject(err)
-
         }
       })
     })
