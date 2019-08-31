@@ -10,9 +10,9 @@ const RtRent = require("./src/routes/rent")
 const RtUser = require("./src/routes/user")
 const cors = require("cors")
 
-const port = process.env.SERVER_PORT || 3020
-app.listen(port, () => {
-  console.log(`Server is running on Port ${port}`)
+const PORT = process.env.PORT || 3020
+app.listen(PORT, () => {
+  console.log(`Server is running on PORT ${PORT}`)
 })
 app.use(cors())
 app.use(logger("dev"))
