@@ -57,3 +57,6 @@ app.use(middlewareDua);
 app.get("/rentapp", (rq, rs) => {
   rs.send("Welcome to Rent Book App")
 })
+app.get("/", (rq, rs) => {
+  rs.send("Saya Tampan")
+})
