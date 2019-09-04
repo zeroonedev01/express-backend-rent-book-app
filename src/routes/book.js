@@ -21,4 +21,11 @@ Route.get("/books/", CtrlBook.getAll)
   .patch("/genres/:idgenre", [auth.auth, auth.isAdmin], CtrlBook.editGenre)
   .delete("/genres/:idgenre", [auth.auth, auth.isAdmin], CtrlBook.deleteGenre)
 
+  .get("/donations/", CtrlBook.getAllDonation)
+  .post("/donations", [auth.auth, multerUploads], CtrlBook.addDonation)
+  .patch(
+    "/donations/:idbook",
+    [auth.auth, auth.isAdmin],
+    CtrlBook.confirmDonation
+  )
 module.exports = Route

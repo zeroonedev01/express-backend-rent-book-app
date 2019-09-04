@@ -206,5 +206,70 @@ module.exports = {
         }
       })
     })
+  },
+  //manageDonation
+  addDonation: data => {
+    return new Promise((resolve, reject) => {
+      conn.query(`INSERT INTO donationbook SET ?`, data, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  },
+  editDonation: (data, idbook) => {
+    return new Promise((resolve, reject) => {
+      conn.query(
+        `UPDATE donationbook set id_status=? where id = ?`,
+        [data, idbook],
+        (err, res) => {
+          if (!err) {
+            resolve(res)
+          } else {
+            reject(err)
+          }
+        }
+      )
+    })
+  },
+  getDonation: idbook => {
+    return new Promise((resolve, reject) => {
+      conn.query(
+        `SELECT * from donationbook where id =?`,
+        idbook,
+        (err, rs) => {
+          if (!err) {
+            resolve(rs)
+          } else {
+            reject(err)
+          }
+        }
+      )
+    })
+  },
+  getDataAllDonation: param => {
+    return new Promise((resolve, reject) => {
+      const userid = param.userid
+      const status = param.status
+
+      console.log(param)
+      let basicquery = `SELECT * FROM donationbook where 1 `
+      if (userid != null) {
+        basicquery += ` AND id_user = ${userid}`
+      }
+      if (status != null) {
+        basicquery += ` AND id_status = ${status}`
+      }
+      console.log("==" + basicquery)
+      conn.query(basicquery, (err, rs) => {
+        if (!err) {
+          resolve(rs)
+        } else {
+          reject(err)
+        }
+      })
+    })
   }
 }

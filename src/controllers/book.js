@@ -196,5 +196,64 @@ module.exports = {
         response.response(rs, "Book is Successfully Deleted", 200, res)
       )
       .catch(err => console.log(err))
+  },
+  //manage donation
+  addDonation: (rq, rs) => {
+    const data = {
+      id: rq.body.id,
+      title: rq.body.title,
+      description: rq.body.desc,
+      dateReleased: rq.body.date,
+      id_status: 2,
+      id_genre: rq.body.genre,
+      id_user: rq.body.userid
+    }
+    modBook
+      .isDuplicateTitle(data.title, data.id)
+      .then(async res => {
+        console.log("panjang", res.length)
+        if (res.length == 0) {
+          if (rq.file) {
+            data.image = await uploadImage(rq)
+          } else {
+            data.image =
+              "https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg"
+          }
+          console.log(data)
+          return await modBook.addDonation(data)
+        } else {
+          return response.response(rs, "Duplicate Title or id buku", 409)
+        }
+      })
+      .then(res =>
+        response.response(rs, "Book is Successfully Inserted", 200, data)
+      )
+      .catch(err => console.log(err))
+  },
+  confirmDonation: (rq, rs) => {
+    const idbook = rq.params.idbook
+    const id_status = 1
+    modBook
+      .getDonation(idbook)
+      .then(async res => {
+        if (res.length > 0) {
+          return await modBook.editDonation(id_status, idbook)
+        } else {
+          return response.response(rs, "Invalid id book", 409)
+        }
+      })
+      .then(res => response.response(rs, "Book Donation Confirmed", 200, res))
+      .catch(err => console.log(err))
+  },
+  getAllDonation: (rq, rs) => {
+    // const sorting = rq.query.sort
+    const paramUrl = {
+      userid: rq.query.userid,
+      status: rq.query.status
+    }
+    modBook
+      .getDataAllDonation(paramUrl)
+      .then(res => response.response(rs, "Success", 200, res))
+      .catch(err => console.log(err))
   }
 }
