@@ -12,7 +12,9 @@ module.exports = {
     const paramUrl = {
       userid: rq.query.userid,
       status: rq.query.status,
-      bookid: rq.query.bookid
+      bookid: rq.query.bookid,
+      reqname: rq.query.rname,
+      reqstatus: rq.query.rstatus
     }
     modRent
       .getAllBorrow(paramUrl)
@@ -47,7 +49,9 @@ module.exports = {
       daterent: new Date(),
       datereturn: rq.body.datereturn,
       datereturnuser: null,
-      user_id: rq.body.user_id
+      user_id: rq.body.user_id,
+      req_name: "borrow",
+      req_status: "pending"
     }
     const idbook = rq.body.id_book
     const status = 2

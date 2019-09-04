@@ -17,6 +17,8 @@ module.exports = {
       const userid = param.userid
       const status = param.status
       const bookid = param.bookid
+      const reqname = param.reqname
+      const reqstat = param.reqstatus
       // console.log(filter)
       let basicquery = `SELECT * FROM v_trx where 1 `
       if (userid != null) {
@@ -27,6 +29,12 @@ module.exports = {
       }
       if (bookid != null) {
         basicquery += ` and bookid= ${bookid}`
+      }
+      if (reqname != null) {
+        basicquery += ` and req_name= '${reqname}'`
+      }
+      if (reqstat != null) {
+        basicquery += ` and req_stat= '${reqstat}'`
       }
       console.log("==" + basicquery)
       conn.query(basicquery, (err, rs) => {
