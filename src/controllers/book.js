@@ -1,5 +1,6 @@
 const modBook = require("../models/book")
 const response = require("./response")
+const { uploadImage, deleteImage } = require("../middleware/uploadImage")
 module.exports = {
   // Manage Books
   getAll: (rq, rs) => {
@@ -40,17 +41,22 @@ module.exports = {
       id: rq.body.id,
       title: rq.body.title,
       description: rq.body.desc,
-      image: rq.body.image,
       dateReleased: rq.body.date,
       id_status: rq.body.available,
       id_genre: rq.body.genre
     }
     modBook
       .isDuplicateTitle(data.title, data.id)
-      .then(res => {
+      .then(async res => {
         if (res.length == 0) {
-          // console.log('a')
-          return modBook.addData(data)
+          if (rq.file) {
+            data.image = await uploadImage(rq)
+          } else {
+            data.image =
+              "https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg"
+          }
+          console.log(data)
+          return await modBook.addData(data)
         } else {
           return response.response(rs, "Duplicate Title or id buku", 409)
         }
@@ -65,18 +71,21 @@ module.exports = {
     const data = {
       title: rq.body.title,
       description: rq.body.desc,
-      image: rq.body.image,
       dateReleased: rq.body.date,
       id_status: rq.body.available,
       id_genre: rq.body.genre
     }
+    console.log(data, "cinta")
     modBook
       .getData(idbook)
-      .then(res => {
-        // console.log(res.length)
+      .then(async res => {
         if (res.length > 0) {
-          console.log("a")
-          return modBook.editData(data, idbook)
+          await deleteImage(res[0].Image)
+          console.log("saat ini", rq.file)
+          if (rq.file) {
+            data.image = await uploadImage(rq)
+          }
+          return await modBook.editData(data, idbook)
         } else {
           return response.response(rs, "Invalid id book", 409)
         }
@@ -90,10 +99,10 @@ module.exports = {
     const idbook = rq.params.idbook
     modBook
       .getData(idbook)
-      .then(res => {
+      .then(async res => {
         if (res.length > 0) {
-          console.log("a")
-          return modBook.deleteData(idbook)
+          await deleteImage(res[0].Image)
+          return await modBook.deleteData(idbook)
         } else {
           return response.response(rs, "Invalid id book", 409)
         }

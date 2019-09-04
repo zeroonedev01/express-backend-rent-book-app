@@ -9,7 +9,7 @@ const RtBook = require("./src/routes/book")
 const RtRent = require("./src/routes/rent")
 const RtUser = require("./src/routes/user")
 const cors = require("cors")
-
+const { cloudinaryConfig } = require("./src/configs/cloudinaryConfig")
 const PORT = process.env.PORT || 3020
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`)
@@ -22,6 +22,7 @@ app.use(
     extended: false
   })
 )
+app.use("*", cloudinaryConfig)
 app.use("/rentapp", RtBook)
 app.use("/rentapp", RtRent)
 app.use("/rentapp", RtUser)
