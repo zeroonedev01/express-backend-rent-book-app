@@ -72,6 +72,21 @@ module.exports = {
       )
     })
   },
+  isDuplicateTitleDonation: (title, id) => {
+    return new Promise((resolve, reject) => {
+      conn.query(
+        `SELECT * from donationbook where title =? or id=?`,
+        [title, id],
+        (err, rs) => {
+          if (!err) {
+            resolve(rs)
+          } else {
+            reject(err)
+          }
+        }
+      )
+    })
+  },
   addData: data => {
     return new Promise((resolve, reject) => {
       conn.query(`INSERT INTO book SET ?`, data, (err, result) => {
@@ -222,7 +237,7 @@ module.exports = {
   editDonation: (data, idbook) => {
     return new Promise((resolve, reject) => {
       conn.query(
-        `UPDATE donationbook set id_status=? where id = ?`,
+        `UPDATE donationbook set ? where id = ?`,
         [data, idbook],
         (err, res) => {
           if (!err) {
@@ -270,6 +285,34 @@ module.exports = {
           reject(err)
         }
       })
+    })
+  },
+  generateId: () => {
+    return new Promise((resolve, reject) => {
+      conn.query(
+        `SELECT id FROM book WHERE id in (select max(id) from book) order by id desc`,
+        (err, rs) => {
+          if (!err) {
+            resolve(rs)
+          } else {
+            reject(err)
+          }
+        }
+      )
+    })
+  },
+  generateIdDonation: () => {
+    return new Promise((resolve, reject) => {
+      conn.query(
+        `SELECT id FROM donationbook WHERE id in (select max(id) from donationbook) order by id desc`,
+        (err, rs) => {
+          if (!err) {
+            resolve(rs)
+          } else {
+            reject(err)
+          }
+        }
+      )
     })
   }
 }

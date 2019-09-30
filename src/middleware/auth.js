@@ -6,7 +6,7 @@ const key = process.env.SECRET_KEY
 module.exports = {
   auth: (rq, rs, next) => {
     const bearerHeader = rq.headers["x-access-token"]
-    console.log(bearerHeader)
+    // console.log(bearerHeader)
     if (!bearerHeader) {
       return response.response(rs, "No token provided", 403)
     }
@@ -27,7 +27,7 @@ module.exports = {
   },
   isAdmin: (rq, rs, next) => {
     const userRole = rq.role
-    console.log(userRole)
+    // console.log(userRole)
     if (userRole.toLowerCase() == "admin") {
       next()
     } else {

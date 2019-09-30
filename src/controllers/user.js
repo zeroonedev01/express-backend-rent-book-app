@@ -15,7 +15,10 @@ module.exports = {
       .then(res => {
         if (res.length == 0) {
           // console.log('a')
-          return modUser.signUp(data)
+          modUser
+            .signUp(data)
+            .then(res => response.response(rs, "Register Success", 200, res))
+            .catch(err => console.error(err))
         } else {
           return response.response(
             rs,
@@ -24,7 +27,6 @@ module.exports = {
           )
         }
       })
-      .then(res => response.response(rs, "Register Success", 200, res))
       .catch(err => console.error(err))
   },
   signIn: (rq, rs) => {
@@ -42,7 +44,8 @@ module.exports = {
               {
                 id: res[0].id,
                 role: res[0].role,
-                email: res[0].email
+                email: res[0].email,
+                username: res[0].username
               },
               process.env.SECRET_KEY,
               {
@@ -53,6 +56,7 @@ module.exports = {
               id: res[0].id,
               role: res[0].role,
               email: res[0].email,
+              username: res[0].username,
               auth: true,
               accessToken: token
             }
@@ -77,7 +81,10 @@ module.exports = {
     const id = rq.params.id
     modUser
       .getUserById(id)
-      .then(res => response.response(rs, "Success", 200, res))
+      .then(res => {
+        if (res.length > 0) return response.response(rs, "Success", 200, res)
+        else return response.response(rs, "Data not Found", 400)
+      })
       .catch(err => console.log(err))
   }
 }

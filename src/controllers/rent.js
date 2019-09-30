@@ -25,7 +25,10 @@ module.exports = {
     const idborrow = rq.params.idborrow
     modRent
       .getBorrowbyId(idborrow)
-      .then(res => response.response(rs, "Success", 200, res))
+      .then(res => {
+        if (res.length > 0) return response.response(rs, "Success", 200, res)
+        else return response.response(rs, "Data not Found", 400)
+      })
       .catch(err => console.log(err))
   },
   // addBorrow: (rq, rs) => {

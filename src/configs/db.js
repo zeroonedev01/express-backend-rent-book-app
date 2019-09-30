@@ -9,7 +9,7 @@ const conn = mysql.createConnection({
   database: process.env.DB_NAME //|| "kecm3262_rent_book"
 })
 conn.connect(function(err) {
-  if (err) throw err
+  if (err) console.log(`Error: ${err}`)
 })
 
 // conn.connect(function (err) {
