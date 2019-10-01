@@ -58,7 +58,7 @@ module.exports = {
             data.image =
               "https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg"
           }
-          // console.log(data)
+
           await modBook
             .addData(data)
             .then(res =>
